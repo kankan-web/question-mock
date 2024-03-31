@@ -34,13 +34,14 @@ module.exports=[
     method:'get',
     response(ctx){
       console.log('ctx is:',ctx)
-      const {originalUrl=''} = ctx
+      const {originalUrl='',query} = ctx
       const isDeleted=originalUrl.indexOf('isDeleted=true')>=0
       const isStar = originalUrl.indexOf('isStar=true')>=0
+      const pageSize = parseInt(query.pageSize)||10
       return {
         code:'S001',
         data:{
-          list:getQuestionList({isDeleted,isStar}),//当前页
+          list:getQuestionList({len:pageSize,isDeleted,isStar}),//当前页
           total:100//总数
         }
       }
