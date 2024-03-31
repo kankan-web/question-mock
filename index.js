@@ -3,10 +3,10 @@ const Router = require('koa-router')
 const mockList = require('./mock/index.js')
 const app = new Koa()
 const router = new Router()
-async function getRes(fn){
+async function getRes(fn,ctx){
   return new Promise(resolve=>{
     setTimeout(()=>{
-      const res = fn()
+      const res = fn(ctx)
       resolve(res)
     },1000)
   })
@@ -17,7 +17,7 @@ mockList.forEach(item => {
   router[method](url,async ctx=>{
     // const res = response()
     //模拟网络请求的加载状态，1s
-    const res = await getRes(response)
+    const res = await getRes(response,ctx)
     ctx.body = res
   })
 });

@@ -6,7 +6,7 @@ module.exports=[
     method:'get',
     response(){
       return {
-        errno:0,
+        code:'S001',
         data:{
           name:Random.cname(),
           
