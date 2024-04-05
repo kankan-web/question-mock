@@ -33,20 +33,52 @@ module.exports=[
     url:'/api/question',
     method:'get',
     response(ctx){
-      console.log('ctx is:',ctx)
       const {originalUrl='',query} = ctx
       const isDeleted=originalUrl.indexOf('isDeleted=true')>=0
       const isStar = originalUrl.indexOf('isStar=true')>=0
       const pageSize = parseInt(query.pageSize)||10
+
       return {
         code:'S001',
+        message:'请求成功',
         data:{
           list:getQuestionList({len:pageSize,isDeleted,isStar}),//当前页
           total:100//总数
         }
       }
     }
+  },
+  {
+    //更新问卷
+    url:'/api/question/:id',
+    method:'patch',
+     response(){
+      return {
+        code:'S001',
+      }
+    }
+  },
+  {
+    //复制问卷
+    url:'/api/question/duplicate/:id',
+    method:'post',
+    response(){
+      return {
+        code:'S001',
+        data:{
+          id:Random.id()
+        }
+      }
+    }
+  },
+  {
+    //批量彻底删除
+    url:'/api/question',
+    method:'delete',
+    response(){
+      return {
+        code:'S001'
+      }
+    }
   }
-    
-  
 ]
